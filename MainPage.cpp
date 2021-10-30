@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "MainPage.h"
 #include "MainPage.g.cpp"
-
+#include "ResourceHeapBuilder.h"
 
 using namespace dx12test::Graphics;
 
@@ -18,6 +18,8 @@ namespace winrt::directx_12_test::implementation
     _device = make_unique<GraphicsDevice>();
     _swapChain = make_unique<SwapChainPanel>(_device->DirectQueue(), RenderPanel());
     
+    ResourceHeapBuilder builder{HeapContentKind::Buffers, _device->CopyQueue()};
+    builder.AddIndexBuffer(ResourceUsageMode::Immutable,  make_shared<IndexPlaceholder<uint16_t>>(16));
   }
 
   int32_t MainPage::MyProperty()

@@ -109,6 +109,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BitwiseOperations.h" />
+    <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="GraphicsDefines.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="GraphicsResource.h" />
@@ -119,7 +121,10 @@
     <ClInclude Include="MainPage.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="ResourceHeapBuilder.h" />
+    <ClInclude Include="ResourceHeapItem.h" />
     <ClInclude Include="SwapChain.h" />
+    <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="WinUiThreading.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +162,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ResourceHeapBuilder.cpp" />
     <ClCompile Include="SwapChain.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">

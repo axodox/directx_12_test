@@ -21,7 +21,10 @@
 #include <winrt/Windows.UI.Xaml.Navigation.h>
 
 
+#include <list>
 #include <functional>
+#include <typeinfo>
+#include <typeindex>
 
 #include <DirectXMath.h>
 #include <dxgi1_4.h>

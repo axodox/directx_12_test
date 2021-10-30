@@ -16,31 +16,52 @@
     <ClCompile Include="MainPage.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="GraphicsDevice.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="SwapChain.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Devices</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsResource.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>Graphics\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Graphics\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceHeapBuilder.cpp">
+      <Filter>Graphics\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="GraphicsDevice.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsDefines.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="SwapChain.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="WinUiThreading.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsDefines.h">
+      <Filter>Graphics\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsDevice.h">
+      <Filter>Graphics\Devices</Filter>
+    </ClInclude>
     <ClInclude Include="GraphicsResource.h">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>Graphics\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>Graphics\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceHeapBuilder.h">
+      <Filter>Graphics\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsData.h">
+      <Filter>Graphics\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceHeapItem.h">
+      <Filter>Graphics\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="BitwiseOperations.h">
+      <Filter>Infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +99,15 @@
     </Filter>
     <Filter Include="Threading">
       <UniqueIdentifier>{a3781fd1-95c7-4155-b605-59560c2c8707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Devices">
+      <UniqueIdentifier>{fc05dfab-ea98-4976-9d1f-64f121fc217d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Resources">
+      <UniqueIdentifier>{ee6acb9d-06e0-4fd1-8731-aab3ce993b92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Infrastructure">
+      <UniqueIdentifier>{6d20a2dc-a5f3-489e-a76b-99d857bf77a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
