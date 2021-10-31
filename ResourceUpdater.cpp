@@ -12,6 +12,20 @@ namespace dx12test::Graphics
     _copyQueue(copyQueue)
   { 
     _device = device_of(copyQueue);
+
+    //Allocate command list
+    check_hresult(_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COPY, guid_of<ID3D12CommandAllocator>(), _commandAllocator.put_void()));
+    check_hresult(_device->CreateCommandList(
+      0,
+      D3D12_COMMAND_LIST_TYPE_COPY,
+      _commandAllocator.get(),
+      nullptr,
+      guid_of<ID3D12GraphicsCommandList>(),
+      _commandList.put_void()));
+
+    //Create fence
+    _completeEvent = handle{ CreateEvent(nullptr, false, false, nullptr) };
+    check_hresult(_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, guid_of<ID3D12Fence>(), _fence.put_void()));
   }
 
   void ResourceUpdater::ScheduleUpdate(ResourceHeapItem * heapItem, const GraphicsData* data)
@@ -48,26 +62,9 @@ namespace dx12test::Graphics
       check_hresult(_device->CreateHeap(&heapDesc, guid_of<ID3D12HeapT>(), _stagingHeap.put_void()));
     }
 
-    //Prepare command list
-    com_ptr<ID3D12CommandAllocator> commandAllocator;
-    check_hresult(_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COPY, guid_of<ID3D12CommandAllocator>(), commandAllocator.put_void()));
-
-    com_ptr<ID3D12GraphicsCommandList> commandList;
-    check_hresult(_device->CreateCommandList(
-      0,
-      D3D12_COMMAND_LIST_TYPE_COPY,
-      commandAllocator.get(),
-      nullptr,
-      guid_of<ID3D12GraphicsCommandList>(),
-      commandList.put_void()));
-
     //Prepare finish signal
-    handle event{ CreateEvent(nullptr, false, false, nullptr) };
-    com_ptr<ID3D12Fence> fence;
-    check_hresult(_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, guid_of<ID3D12Fence>(), fence.put_void()));
-    
-    auto completedValue = fence->GetCompletedValue() + 1;
-    check_hresult(fence->SetEventOnCompletion(completedValue, event.get()));
+    auto completedValue = _fence->GetCompletedValue() + 1;
+    check_hresult(_fence->SetEventOnCompletion(completedValue, _completeEvent.get()));
 
     //Create staging resources
     vector<com_ptr<ID3D12Resource>> resources;
@@ -97,21 +94,23 @@ namespace dx12test::Graphics
       stagingResource->Unmap(0, &range);
 
       //Copy staged data to GPU
-      commandList->CopyResource(update->HeapItem->Resource().get(), stagingResource.get());
+      _commandList->CopyResource(update->HeapItem->Resource().get(), stagingResource.get());
 
       //Keep resources alive
       resources.push_back(move(stagingResource));
     }
-    commandList->Close();
+    _commandList->Close();
 
     //Execute copy
-    auto copyCommand = commandList.as<ID3D12CommandList>().get();
+    auto copyCommand = _commandList.as<ID3D12CommandList>().get();
     _copyQueue->ExecuteCommandLists(1, &copyCommand);
 
-    check_hresult(_copyQueue->Signal(fence.get(), completedValue));
-    WaitForSingleObject(event.get(), INFINITE);
+    check_hresult(_copyQueue->Signal(_fence.get(), completedValue));
+    WaitForSingleObject(_completeEvent.get(), INFINITE);
 
     //Cleanup
     _updates.clear();
+    check_hresult(_commandAllocator->Reset());
+    check_hresult(_commandList->Reset(_commandAllocator.get(), nullptr));
   }
 }

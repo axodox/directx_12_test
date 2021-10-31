@@ -24,12 +24,6 @@
     <ClCompile Include="SwapChain.cpp">
       <Filter>Graphics\Devices</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceHeapBuilder.cpp">
-      <Filter>Graphics\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceHeapItem.cpp">
-      <Filter>Graphics\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="IndexBuffer.cpp">
       <Filter>Graphics\Resources\Buffers</Filter>
     </ClCompile>
@@ -39,11 +33,17 @@
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>Graphics\Resources\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceUpdater.cpp">
-      <Filter>Graphics\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="HeapLayoutGenerator.cpp">
-      <Filter>Graphics\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceHeapBuilder.cpp">
+      <Filter>Graphics\Resources\Memory Management</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceHeapItem.cpp">
+      <Filter>Graphics\Resources\Memory Management</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceUpdater.cpp">
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,15 +63,6 @@
     <ClInclude Include="SwapChain.h">
       <Filter>Graphics\Devices</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceHeapBuilder.h">
-      <Filter>Graphics\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsData.h">
-      <Filter>Graphics\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceHeapItem.h">
-      <Filter>Graphics\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="BitwiseOperations.h">
       <Filter>Infrastructure</Filter>
     </ClInclude>
@@ -88,10 +79,19 @@
       <Filter>Graphics\Resources\Buffers</Filter>
     </ClInclude>
     <ClInclude Include="ResourceUpdater.h">
-      <Filter>Graphics\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsData.h">
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClInclude>
     <ClInclude Include="HeapLayoutGenerator.h">
-      <Filter>Graphics\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceHeapBuilder.h">
+      <Filter>Graphics\Resources\Memory Management</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceHeapItem.h">
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +144,9 @@
     </Filter>
     <Filter Include="Graphics\Resources\VertexDefinitions">
       <UniqueIdentifier>{a9fca93d-ef32-44c1-accd-163bd13a1039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Resources\Memory Management">
+      <UniqueIdentifier>{f7ec9bac-4934-48c5-aba9-e005e4be484b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

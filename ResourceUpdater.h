@@ -19,9 +19,14 @@ namespace dx12test::Graphics
     void ScheduleUpdate(ResourceHeapItem* heapItem, const GraphicsData* data);
     void ExecuteUpdates();
 
-  private:
+  private:    
     winrt::com_ptr<ID3D12CommandQueue> _copyQueue;
+    winrt::com_ptr<ID3D12CommandAllocator> _commandAllocator;
+    winrt::com_ptr<ID3D12GraphicsCommandList> _commandList;
+    winrt::com_ptr<ID3D12Fence> _fence;
+    winrt::handle _completeEvent;
     winrt::com_ptr<ID3D12HeapT> _stagingHeap;
+    
     std::vector<ResourceUpdate> _updates;
   };
 }
