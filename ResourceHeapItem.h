@@ -2,6 +2,16 @@
 
 namespace dx12test::Graphics
 {
+  enum class ResourceCategory
+  {
+    None = 0,
+    Buffers = 1,
+    Textures = 2,
+    RenderTargets = 4
+  };
+
+  D3D12_HEAP_FLAGS ToHeapFlags(ResourceCategory category);
+
   enum class ResourceType
   {
     Unknown,
@@ -9,6 +19,10 @@ namespace dx12test::Graphics
     VertexBuffer,
     ConstantBuffer
   };
+
+  ResourceCategory ToResourceCategory(ResourceType resourceType);
+
+  bool AreCompatible(const D3D12_HEAP_DESC& target, const D3D12_HEAP_DESC& source);
 
   enum class ResourceUsageMode
   {

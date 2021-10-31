@@ -20,7 +20,7 @@ namespace winrt::directx_12_test::implementation
     _device = make_unique<GraphicsDevice>();
     _swapChain = make_unique<SwapChainPanel>(_device->DirectQueue(), RenderPanel());
     
-    ResourceHeapBuilder builder{HeapContentKind::Buffers, _device->CopyQueue()};
+    ResourceHeapBuilder builder{ResourceCategory::Buffers, _device->CopyQueue()};
 
     IndexData<uint16_t> indices{{ 1, 2, 3 }};
     VertexData<VertexPosition> vertices{{ 
@@ -33,11 +33,11 @@ namespace winrt::directx_12_test::implementation
     {
       XMFLOAT4X4 WorldViewProjection;
     };
-    ConstantData<MyConstants> constants;
+    ConstantPlaceholder<MyConstants> constants;
     
-    auto ib = builder.AddIndexBuffer(ResourceUsageMode::Immutable, indices);
-    auto vb = builder.AddVertexBuffer(ResourceUsageMode::Immutable, vertices);
-    auto cb = builder.AddConstantBuffer(ResourceUsageMode::Immutable, constants);
+    auto ib = builder.AddIndexBuffer(indices);
+    auto vb = builder.AddVertexBuffer(vertices);
+    auto cb = builder.AddConstantBuffer(constants);
     auto heap = builder.Build();
   }
 
