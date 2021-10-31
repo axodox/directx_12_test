@@ -163,6 +163,7 @@
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="ResourceHeapBuilder.cpp" />
+    <ClCompile Include="ResourceHeapItem.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
   </ItemGroup>

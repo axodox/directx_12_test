@@ -19,7 +19,13 @@ namespace winrt::directx_12_test::implementation
     _swapChain = make_unique<SwapChainPanel>(_device->DirectQueue(), RenderPanel());
     
     ResourceHeapBuilder builder{HeapContentKind::Buffers, _device->CopyQueue()};
-    builder.AddIndexBuffer(ResourceUsageMode::Immutable,  make_shared<IndexPlaceholder<uint16_t>>(16));
+
+    auto indices = make_shared<IndexData<uint16_t>>();
+    indices->Buffer = { 1,2,3 };
+
+    builder.AddIndexBuffer(ResourceUsageMode::Immutable, indices);
+    builder.AddIndexBuffer(ResourceUsageMode::Immutable, indices);
+    builder.Build();
   }
 
   int32_t MainPage::MyProperty()

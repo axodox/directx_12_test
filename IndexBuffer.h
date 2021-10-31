@@ -15,8 +15,6 @@ namespace dx12test::Graphics
   {
   public:
     virtual ResourceType Type() const override;
-    virtual D3D12_RESOURCE_STATES DefaultState() const override;
-    virtual void Initialize(const winrt::com_ptr<ID3D12Resource>& resource) override;
-  
+    virtual D3D12_RESOURCE_STATES DefaultState() const override;  
   };
 }

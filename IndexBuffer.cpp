@@ -14,8 +14,4 @@ namespace dx12test::Graphics
   {
     return D3D12_RESOURCE_STATE_INDEX_BUFFER;
   }
-  
-  void IndexBuffer::Initialize(const winrt::com_ptr<ID3D12Resource>& resource)
-  {
-  }
 }

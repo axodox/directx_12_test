@@ -5,7 +5,7 @@ namespace dx12test::Graphics
 {
   struct GraphicsData
   {
-    virtual uint8_t* Data() const = 0;
+    virtual const uint8_t* Data() const = 0;
     virtual size_t Length() const = 0;    
     virtual ~GraphicsData() = default;
 
@@ -39,9 +39,9 @@ namespace dx12test::Graphics
     typedef T ItemType;
     std::vector<T> Buffer;
 
-    virtual uint8_t* Data() const override
+    virtual const uint8_t* Data() const override
     {
-      return reinterpret_cast<uint8_t*>(Buffer.data());
+      return reinterpret_cast<const uint8_t*>(Buffer.data());
     }
 
     virtual size_t Length() const override
@@ -59,7 +59,7 @@ namespace dx12test::Graphics
       Size(size)
     { }
 
-    virtual uint8_t* Data() const override
+    virtual const uint8_t* Data() const override
     {
       return nullptr;
     }

@@ -30,6 +30,9 @@
     <ClCompile Include="ResourceHeapBuilder.cpp">
       <Filter>Graphics\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceHeapItem.cpp">
+      <Filter>Graphics\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
