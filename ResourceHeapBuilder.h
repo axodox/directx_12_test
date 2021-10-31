@@ -1,6 +1,8 @@
 #pragma once
 #include "GraphicsResource.h"
 #include "IndexBuffer.h"
+#include "VertexBuffer.h"
+#include "ConstantBuffer.h"
 
 namespace dx12test::Graphics
 {
@@ -17,21 +19,21 @@ namespace dx12test::Graphics
     struct ResourceHeapData
     {
       ResourceUsageMode UsageMode;
-      std::shared_ptr<GraphicsData> SourceData;
-      std::shared_ptr<ResourceHeapItem> HeapItem;
+      const GraphicsData* SourceData;
+      ResourceHeapItem* HeapItem;
     };
 
     ResourceHeapData& NewComponent();
 
     template<typename THeapItem, typename TSourceData>
-    std::shared_ptr<IndexBuffer> AddHeapItem(ResourceUsageMode usageMode, const std::shared_ptr<TSourceData>& data = nullptr)
+    std::unique_ptr<THeapItem> AddHeapItem(ResourceUsageMode usageMode, const TSourceData& data = nullptr)
     {
-      auto result = std::make_shared<THeapItem>();
+      auto result = std::make_unique<THeapItem>();
 
       auto& component = NewComponent();
       component.UsageMode = usageMode;
-      component.SourceData = std::static_pointer_cast<GraphicsData>(data);
-      component.HeapItem = result;
+      component.SourceData = &data;
+      component.HeapItem = result.get();
       return result;
     }
 
@@ -40,18 +42,43 @@ namespace dx12test::Graphics
     HeapContentKind Kind() const;
 
     template<typename T>
-    std::shared_ptr<IndexBuffer> AddIndexBuffer(ResourceUsageMode usageMode, const std::shared_ptr<IndexData<T>>& data)
+    std::unique_ptr<IndexBuffer> AddIndexBuffer(ResourceUsageMode usageMode, const IndexData<T>& data)
     {
       return AddHeapItem<IndexBuffer>(usageMode, data);
     }
 
     template<typename T>
-    std::shared_ptr<IndexBuffer> AddIndexBuffer(ResourceUsageMode usageMode, const std::shared_ptr<IndexPlaceholder<T>>& data)
+    std::unique_ptr<IndexBuffer> AddIndexBuffer(ResourceUsageMode usageMode, const IndexPlaceholder<T>& data)
     {
       return AddHeapItem<IndexBuffer>(usageMode, data);
     }
 
-    void Build();
+    template<typename T>
+    std::unique_ptr<VertexBuffer> AddVertexBuffer(ResourceUsageMode usageMode, const VertexData<T>& data)
+    {
+      return AddHeapItem<VertexBuffer>(usageMode, data);
+    }
+
+    template<typename T>
+    std::unique_ptr<VertexBuffer> AddVertexBuffer(ResourceUsageMode usageMode, const VertexPlaceholder<T>& data)
+    {
+      return AddHeapItem<VertexBuffer>(usageMode, data);
+    }
+
+    template<typename T>
+    std::unique_ptr<ConstantBuffer> AddConstantBuffer(ResourceUsageMode usageMode, const ConstantData<T>& data)
+    {
+      return AddHeapItem<ConstantBuffer>(usageMode, data);
+    }
+
+    template<typename T>
+    std::unique_ptr<ConstantBuffer> AddConstantBuffer(ResourceUsageMode usageMode, const ConstantPlaceholder<T>& data)
+    {
+      return AddHeapItem<ConstantBuffer>(usageMode, data);
+    }
+
+    [[nodiscard]]
+    winrt::com_ptr<ID3D12HeapT> Build();
 
   private:
     HeapContentKind _heapKind;

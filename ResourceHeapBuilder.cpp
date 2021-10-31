@@ -25,7 +25,7 @@ namespace dx12test::Graphics
     return _heapKind;
   }
 
-  void ResourceHeapBuilder::Build()
+  winrt::com_ptr<ID3D12HeapT> ResourceHeapBuilder::Build()
   {
     //Calculate layout for all resources
     struct ResourceLayout
@@ -101,73 +101,76 @@ namespace dx12test::Graphics
     }
 
     //Create staging heap, if we need to upload data
-    if (stagingSize == 0) return;
-
-    heapDesc.Properties.Type = D3D12_HEAP_TYPE_UPLOAD;
-
-    shift = stagingSize % heapDesc.Alignment;
-    stagingSize += shift == 0 ? 0 : heapDesc.Alignment - shift;
-    heapDesc.SizeInBytes = stagingSize;
-
-    com_ptr<ID3D12HeapT> stagingHeap;
-    check_hresult(_device->CreateHeap(&heapDesc, guid_of<ID3D12HeapT>(), stagingHeap.put_void()));
-
-    //Upload data to GPU
-    com_ptr<ID3D12CommandAllocator> commandAllocator;
-    check_hresult(_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COPY, guid_of<ID3D12CommandAllocator>(), commandAllocator.put_void()));
-
-    handle event{ CreateEvent(nullptr, false, false, nullptr) };
-    com_ptr<ID3D12Fence> fence;
-    check_hresult(_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, guid_of<ID3D12Fence>(), fence.put_void()));
-    
-    for (auto& layout : layouts)
+    if (stagingSize > 0)
     {
-      auto sourceData = layout.Component->SourceData.get();
-      if (sourceData->Data() == nullptr) continue;
+      heapDesc.Properties.Type = D3D12_HEAP_TYPE_UPLOAD;
 
-      //Create CPU resource
-      com_ptr<ID3D12Resource> stagingResource;
-      check_hresult(_device->CreatePlacedResource(
-        stagingHeap.get(),
-        0,
-        &layout.Desc,
-        D3D12_RESOURCE_STATE_GENERIC_READ,
-        nullptr,
-        guid_of<ID3D12Resource>(),
-        stagingResource.put_void()));
+      shift = stagingSize % heapDesc.Alignment;
+      stagingSize += shift == 0 ? 0 : heapDesc.Alignment - shift;
+      heapDesc.SizeInBytes = stagingSize;
 
-      //Copy data to staging area
-      D3D12_RANGE range;
-      zero_memory(range);
+      com_ptr<ID3D12HeapT> stagingHeap;
+      check_hresult(_device->CreateHeap(&heapDesc, guid_of<ID3D12HeapT>(), stagingHeap.put_void()));
 
-      void* target = nullptr;
-      check_hresult(stagingResource->Map(0, &range, &target));
-      memcpy(target, sourceData->Data(), sourceData->Length());
-      range.End = sourceData->Length();
-      stagingResource->Unmap(0, &range);
+      //Upload data to GPU
+      com_ptr<ID3D12CommandAllocator> commandAllocator;
+      check_hresult(_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COPY, guid_of<ID3D12CommandAllocator>(), commandAllocator.put_void()));
 
-      //Copy staged data to GPU
-      com_ptr<ID3D12GraphicsCommandList> commandList;
-      check_hresult(_device->CreateCommandList(
-        0,
-        D3D12_COMMAND_LIST_TYPE_COPY,
-        commandAllocator.get(),
-        nullptr,
-        guid_of<ID3D12GraphicsCommandList>(),
-        commandList.put_void()));
+      handle event{ CreateEvent(nullptr, false, false, nullptr) };
+      com_ptr<ID3D12Fence> fence;
+      check_hresult(_device->CreateFence(0, D3D12_FENCE_FLAG_NONE, guid_of<ID3D12Fence>(), fence.put_void()));
 
-      commandList->CopyResource(layout.Component->HeapItem->Resource().get(), stagingResource.get());
-      commandList->Close();
+      for (auto& layout : layouts)
+      {
+        auto sourceData = layout.Component->SourceData;
+        if (sourceData->Data() == nullptr) continue;
 
-      auto copyCommand = commandList.as<ID3D12CommandList>().get();
-      _copyQueue->ExecuteCommandLists(1, &copyCommand);
-      
-      auto completedValue = fence->GetCompletedValue() + 1;
-      check_hresult(fence->SetEventOnCompletion(completedValue, event.get()));
-      check_hresult(_copyQueue->Signal(fence.get(), completedValue));
-      WaitForSingleObject(event.get(), INFINITE);
+        //Create CPU resource
+        com_ptr<ID3D12Resource> stagingResource;
+        check_hresult(_device->CreatePlacedResource(
+          stagingHeap.get(),
+          0,
+          &layout.Desc,
+          D3D12_RESOURCE_STATE_GENERIC_READ,
+          nullptr,
+          guid_of<ID3D12Resource>(),
+          stagingResource.put_void()));
 
-      check_hresult(commandList->Reset(commandAllocator.get(), nullptr));
+        //Copy data to staging area
+        D3D12_RANGE range;
+        zero_memory(range);
+
+        void* target = nullptr;
+        check_hresult(stagingResource->Map(0, &range, &target));
+        memcpy(target, sourceData->Data(), sourceData->Length());
+        range.End = sourceData->Length();
+        stagingResource->Unmap(0, &range);
+
+        //Copy staged data to GPU
+        com_ptr<ID3D12GraphicsCommandList> commandList;
+        check_hresult(_device->CreateCommandList(
+          0,
+          D3D12_COMMAND_LIST_TYPE_COPY,
+          commandAllocator.get(),
+          nullptr,
+          guid_of<ID3D12GraphicsCommandList>(),
+          commandList.put_void()));
+
+        commandList->CopyResource(layout.Component->HeapItem->Resource().get(), stagingResource.get());
+        commandList->Close();
+
+        auto copyCommand = commandList.as<ID3D12CommandList>().get();
+        _copyQueue->ExecuteCommandLists(1, &copyCommand);
+
+        auto completedValue = fence->GetCompletedValue() + 1;
+        check_hresult(fence->SetEventOnCompletion(completedValue, event.get()));
+        check_hresult(_copyQueue->Signal(fence.get(), completedValue));
+        WaitForSingleObject(event.get(), INFINITE);
+
+        check_hresult(commandList->Reset(commandAllocator.get(), nullptr));
+      }
     }
+
+    return resourceHeap;
   }
 }

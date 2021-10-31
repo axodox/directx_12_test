@@ -34,10 +34,55 @@ namespace dx12test::Graphics
   };
 
   template<typename T>
-  struct ArrayBufferData : BufferData
+  struct ValueBufferData : public BufferData
+  {
+    typedef T ValueType;
+    T Value;
+
+    ValueBufferData() = default;
+    ValueBufferData(const T& value) :
+      Value(value)
+    { }
+
+    virtual const uint8_t* Data() const override
+    {
+      return reinterpret_cast<const uint8_t*>(&Value);
+    }
+
+    virtual size_t Length() const override
+    {
+      return sizeof(T);
+    }
+  };
+
+  template<typename T>
+  struct ValueBufferPlaceholder : public BufferData
+  {
+    typedef T ValueType;
+
+    ValueBufferPlaceholder() = default;
+
+    virtual const uint8_t* Data() const override
+    {
+      return nullptr;
+    }
+
+    virtual size_t Length() const override
+    {
+      return sizeof(T);
+    }
+  };
+
+  template<typename T>
+  struct ArrayBufferData : public BufferData
   {
     typedef T ItemType;
     std::vector<T> Buffer;
+
+    ArrayBufferData() = default;
+    ArrayBufferData(std::vector<T>&& items) :
+      Buffer(std::move(items))
+    { }
 
     virtual const uint8_t* Data() const override
     {
@@ -51,7 +96,7 @@ namespace dx12test::Graphics
   };
 
   template<typename T>
-  struct ArrayBufferPlaceholder : BufferData
+  struct ArrayBufferPlaceholder : public BufferData
   {
     size_t Size;
 

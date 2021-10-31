@@ -2,8 +2,10 @@
 #include "MainPage.h"
 #include "MainPage.g.cpp"
 #include "ResourceHeapBuilder.h"
+#include "VertexPosition.h"
 
 using namespace dx12test::Graphics;
+using namespace DirectX;
 
 using namespace std;
 using namespace winrt;
@@ -20,12 +22,23 @@ namespace winrt::directx_12_test::implementation
     
     ResourceHeapBuilder builder{HeapContentKind::Buffers, _device->CopyQueue()};
 
-    auto indices = make_shared<IndexData<uint16_t>>();
-    indices->Buffer = { 1,2,3 };
+    IndexData<uint16_t> indices{{ 1, 2, 3 }};
+    VertexData<VertexPosition> vertices{{ 
+        XMFLOAT3{0,0,0},
+        XMFLOAT3{0,1,0},
+        XMFLOAT3{0,0,2}
+      }};
 
-    builder.AddIndexBuffer(ResourceUsageMode::Immutable, indices);
-    builder.AddIndexBuffer(ResourceUsageMode::Immutable, indices);
-    builder.Build();
+    struct MyConstants
+    {
+      XMFLOAT4X4 WorldViewProjection;
+    };
+    ConstantData<MyConstants> constants;
+    
+    auto ib = builder.AddIndexBuffer(ResourceUsageMode::Immutable, indices);
+    auto vb = builder.AddVertexBuffer(ResourceUsageMode::Immutable, vertices);
+    auto cb = builder.AddConstantBuffer(ResourceUsageMode::Immutable, constants);
+    auto heap = builder.Build();
   }
 
   int32_t MainPage::MyProperty()

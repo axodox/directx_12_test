@@ -110,6 +110,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BitwiseOperations.h" />
+    <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="GraphicsDefines.h" />
     <ClInclude Include="GraphicsDevice.h" />
@@ -125,6 +126,8 @@
     <ClInclude Include="ResourceHeapItem.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexPosition.h" />
     <ClInclude Include="WinUiThreading.h" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +153,7 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="GraphicsResource.cpp" />
     <ClCompile Include="pch.cpp">
@@ -166,6 +170,7 @@
     <ClCompile Include="ResourceHeapItem.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">

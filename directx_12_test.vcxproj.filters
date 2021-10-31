@@ -24,14 +24,20 @@
     <ClCompile Include="SwapChain.cpp">
       <Filter>Graphics\Devices</Filter>
     </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Graphics\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceHeapBuilder.cpp">
       <Filter>Graphics\Resources</Filter>
     </ClCompile>
     <ClCompile Include="ResourceHeapItem.cpp">
       <Filter>Graphics\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Graphics\Resources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Graphics\Resources\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>Graphics\Resources\Buffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,9 +57,6 @@
     <ClInclude Include="SwapChain.h">
       <Filter>Graphics\Devices</Filter>
     </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
-      <Filter>Graphics\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceHeapBuilder.h">
       <Filter>Graphics\Resources</Filter>
     </ClInclude>
@@ -65,6 +68,18 @@
     </ClInclude>
     <ClInclude Include="BitwiseOperations.h">
       <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>Graphics\Resources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Graphics\Resources\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexPosition.h">
+      <Filter>Graphics\Resources\VertexDefinitions</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>Graphics\Resources\Buffers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +126,12 @@
     </Filter>
     <Filter Include="Infrastructure">
       <UniqueIdentifier>{6d20a2dc-a5f3-489e-a76b-99d857bf77a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Resources\Buffers">
+      <UniqueIdentifier>{51ec3140-5165-4c64-b067-5f71e09a1d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Resources\VertexDefinitions">
+      <UniqueIdentifier>{a9fca93d-ef32-44c1-accd-163bd13a1039}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

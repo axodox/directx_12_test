@@ -6,21 +6,21 @@
 namespace dx12test::Graphics
 {
   template<typename T>
-  struct IndexData : public ArrayBufferData<T>
-  { 
+  struct VertexData : public ArrayBufferData<T>
+  {
     using ArrayBufferData<T>::ArrayBufferData;
   };
 
   template<typename T>
-  struct IndexPlaceholder : public ArrayBufferPlaceholder<T>
-  { 
+  struct VertexPlaceholder : public ArrayBufferPlaceholder<T>
+  {
     using ArrayBufferData<T>::ArrayBufferData;
   };
 
-  class IndexBuffer : public ResourceHeapItem
+  class VertexBuffer : public ResourceHeapItem
   {
   public:
     virtual ResourceType Type() const override;
-    virtual D3D12_RESOURCE_STATES DefaultState() const override;  
+    virtual D3D12_RESOURCE_STATES DefaultState() const override;
   };
 }

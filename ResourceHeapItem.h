@@ -5,7 +5,9 @@ namespace dx12test::Graphics
   enum class ResourceType
   {
     Unknown,
-    IndexBuffer
+    IndexBuffer,
+    VertexBuffer,
+    ConstantBuffer
   };
 
   enum class ResourceUsageMode
