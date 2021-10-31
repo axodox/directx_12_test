@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "HeapLayoutGenerator.h"
+#include "ResourceHeapLayoutGenerator.h"
 
 using namespace std;
 
 namespace dx12test::Graphics
 {
-  void HeapLayoutGenerator::AddItem(void* tag, const D3D12_RESOURCE_DESC& desc)
+  void ResourceHeapLayoutGenerator::AddItem(void* tag, const D3D12_RESOURCE_DESC& desc)
   {
     _items.push_back({ tag, desc });
   }
   
-  HeapLayout HeapLayoutGenerator::GetLayout(const winrt::com_ptr<ID3D12DeviceT>& device, uint64_t alignment)
+  ResourceHeapLayout ResourceHeapLayoutGenerator::GetLayout(const winrt::com_ptr<ID3D12DeviceT>& device, uint64_t alignment)
   {
-    HeapLayout layout;
+    ResourceHeapLayout layout;
     layout.Items.reserve(_items.size());
     uint64_t offset = 0;
     for (auto& item : _items)

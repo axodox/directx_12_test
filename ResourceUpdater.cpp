@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "ResourceUpdater.h"
-#include "HeapLayoutGenerator.h"
+#include "ResourceHeapLayoutGenerator.h"
 
 using namespace std;
 using namespace winrt;
@@ -38,7 +38,7 @@ namespace dx12test::Graphics
     if (_updates.empty()) return;
 
     //Build layout
-    HeapLayoutGenerator layoutGenerator;
+    ResourceHeapLayoutGenerator layoutGenerator;
     auto resourceCategory = ResourceCategory::None;
     for (auto& update : _updates)
     {

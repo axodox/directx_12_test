@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "ResourceHeapBuilder.h"
-#include "HeapLayoutGenerator.h"
+#include "ResourceHeapLayoutGenerator.h"
 #include "ResourceUpdater.h"
 
 using namespace winrt;
@@ -29,7 +29,7 @@ namespace dx12test::Graphics
   winrt::com_ptr<ID3D12HeapT> ResourceHeapBuilder::Build()
   {
     //Calculate layout for all resources
-    HeapLayoutGenerator layoutGenerator;        
+    ResourceHeapLayoutGenerator layoutGenerator;        
     for (auto& component : _components)
     {
       layoutGenerator.AddItem(&component, component.SourceData->GetDesc());
