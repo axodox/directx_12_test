@@ -8,8 +8,21 @@ using namespace winrt;
 
 namespace dx12test::Graphics
 {
+  bool DescriptorHeapItem::IsLoaded() const
+  {
+    return _isLoaded;
+  }
+
+  bool DescriptorHeapItem::TryLoad(const DescriptorHeapItemInitializationContext& context)
+  {
+    if (_isLoaded) return false;
+
+    _isLoaded = OnTryLoad(context);
+    return _isLoaded;
+  }
+
   DescriptorHeap::DescriptorHeap(const winrt::com_ptr<ID3D12DeviceT>& device) :
-    _device(device)
+    GraphicsResource(device)
   { }
   
   void DescriptorHeap::Rebuild()
@@ -18,6 +31,12 @@ namespace dx12test::Graphics
     auto descriptors = CleanUpAndLockDescriptors();
     AllocateHeapSpace(descriptors);
     PopulateHeap(descriptors);
+  }
+
+  void DescriptorHeap::AddDescriptorHeapItem(const std::shared_ptr<DescriptorHeapItem>& heapItem)
+  {
+    lock_guard lock(_mutex);
+    _items.push_back(heapItem);
   }
 
   std::vector<std::shared_ptr<DescriptorHeapItem>> DescriptorHeap::CleanUpAndLockDescriptors()
@@ -61,19 +80,12 @@ namespace dx12test::Graphics
     //If size is large enough nothing to do
     if (_heapSize >= requiredHeapSize) return;
 
-    //Unload all resources
-    for (auto& descriptor : descriptors)
-    {
-      descriptor->Unload();
-    }
-
-    //Remove heaps
-    _defaultHeap = nullptr;
-    _uploadHeap = nullptr;
+    //Unallocate old heap
+    _heap = nullptr;
 
     //Calculate new size    
     requiredHeapSize = descriptors.size();
-    auto newHeapSize = _heapSize;
+    auto newHeapSize = 1;
     do
     {
       newHeapSize *= 2;
@@ -85,17 +97,14 @@ namespace dx12test::Graphics
     desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE(Type());
     desc.NumDescriptors = newHeapSize;
     
-    bool requiresUploadHeap;
     switch (Type())
     {
     case DescriptorHeapType::Resource:
     case DescriptorHeapType::Sampler:
       desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-      requiresUploadHeap = true;
       break;
     default:
       desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-      requiresUploadHeap = false;
       break;
     }
 
@@ -103,44 +112,36 @@ namespace dx12test::Graphics
     check_hresult(_device->CreateDescriptorHeap(
       &desc, 
       guid_of<ID3D12DescriptorHeap>(),
-      _defaultHeap.put_void()));
+      _heap.put_void()));
     _heapSize = newHeapSize;
     _heapStart = 0;
-
-    //Create upload heap as needed
-    if (requiresUploadHeap)
-    {
-      desc.Flags &= ~D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-      check_hresult(_device->CreateDescriptorHeap(
-        &desc,
-        guid_of<ID3D12DescriptorHeap>(),
-        _uploadHeap.put_void()));
-    }
   }
   
   void DescriptorHeap::PopulateHeap(const std::vector<std::shared_ptr<DescriptorHeapItem>>& descriptors)
   {
-    //Use upload heap unless the default heap is CPU accessible
-    auto uploadHeap = _uploadHeap ? _uploadHeap.get() : _defaultHeap.get();
-
     //Determine upload location
-    auto handleSlot = uploadHeap->GetCPUDescriptorHandleForHeapStart();
+    auto handleStartCpu = _heap->GetCPUDescriptorHandleForHeapStart();
     auto handleIncrement = _device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE(Type()));
-    handleSlot.ptr += _heapStart * handleIncrement;
+    handleStartCpu.ptr += _heapStart * handleIncrement;
+
+    //Initialize context
+    DescriptorHeapItemInitializationContext context;
+    zero_memory(context);
+    context.Device = _device.get();
+    context.CpuDescriptorHandle = handleStartCpu;
+    context.Slot = _heapStart;
 
     //Load descriptors
-    auto currentSlot = _heapStart;
     for (auto& descriptor : descriptors)
     {
-      if (descriptor->TryLoad(handleSlot))
+      if (descriptor->TryLoad(context))
       {
-        handleSlot.ptr += handleIncrement;
-        currentSlot++;
+        context.CpuDescriptorHandle.ptr += handleIncrement;
+        context.Slot++;
       }
     }
-    
-    
+        
     //Set new heap start
-    _heapStart = currentSlot;
+    _heapStart = context.Slot;
   }
 }

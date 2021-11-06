@@ -2,6 +2,7 @@
 #include "MainPage.h"
 #include "MainPage.g.cpp"
 #include "ResourceHeapBuilder.h"
+#include "ResourceDescriptorHeap.h"
 #include "VertexPosition.h"
 
 using namespace dx12test::Graphics;
@@ -39,6 +40,10 @@ namespace winrt::directx_12_test::implementation
     auto vb = builder.AddVertexBuffer(vertices);
     auto cb = builder.AddConstantBuffer(constants);
     auto heap = builder.Build();
+
+    ResourceDescriptorHeap resourceDescHeap{_device->Device()};
+    auto cbv = resourceDescHeap.AddConstantBufferView(move(cb));
+    resourceDescHeap.Rebuild();
   }
 
   int32_t MainPage::MyProperty()

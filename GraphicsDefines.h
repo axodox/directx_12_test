@@ -6,6 +6,7 @@ namespace dx12test::Graphics
   typedef ID3D12Device ID3D12DeviceT;
   typedef IDXGIFactory4 IDXGIFactoryT;
   typedef ID3D12Heap ID3D12HeapT;
+  typedef ID3D12Resource ID3D12ResourceT;
 
   const D3D_FEATURE_LEVEL D3D_REQUIRED_FEATURE_LEVEL = D3D_FEATURE_LEVEL_12_1;
 

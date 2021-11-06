@@ -34,22 +34,25 @@
       <Filter>Graphics\Resources\Buffers</Filter>
     </ClCompile>
     <ClCompile Include="ResourceHeapBuilder.cpp">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClCompile>
     <ClCompile Include="ResourceHeapItem.cpp">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClCompile>
     <ClCompile Include="ResourceHeapLayoutGenerator.cpp">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClCompile>
     <ClCompile Include="ResourceUpdater.cpp">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClCompile>
     <ClCompile Include="DescriptorHeap.cpp">
-      <Filter>Graphics\Resources\Memory Management\Descriptors</Filter>
+      <Filter>Graphics\Descriptors\Memory Management</Filter>
     </ClCompile>
     <ClCompile Include="ResourceDescriptorHeap.cpp">
-      <Filter>Graphics\Resources\Memory Management\Descriptors</Filter>
+      <Filter>Graphics\Descriptors\Memory Management</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferView.cpp">
+      <Filter>Graphics\Descriptors\Buffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,22 +91,25 @@
       <Filter>Graphics\Resources\Memory Management</Filter>
     </ClInclude>
     <ClInclude Include="ResourceHeapBuilder.h">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClInclude>
     <ClInclude Include="ResourceHeapItem.h">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClInclude>
     <ClInclude Include="ResourceHeapLayoutGenerator.h">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClInclude>
     <ClInclude Include="ResourceUpdater.h">
-      <Filter>Graphics\Resources\Memory Management\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="DescriptorHeap.h">
-      <Filter>Graphics\Resources\Memory Management\Descriptors</Filter>
+      <Filter>Graphics\Resources\Memory Management</Filter>
     </ClInclude>
     <ClInclude Include="ResourceDescriptorHeap.h">
-      <Filter>Graphics\Resources\Memory Management\Descriptors</Filter>
+      <Filter>Graphics\Descriptors\Memory Management</Filter>
+    </ClInclude>
+    <ClInclude Include="DescriptorHeap.h">
+      <Filter>Graphics\Descriptors\Memory Management</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferView.h">
+      <Filter>Graphics\Descriptors\Buffers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -160,11 +166,14 @@
     <Filter Include="Graphics\Resources\Memory Management">
       <UniqueIdentifier>{f7ec9bac-4934-48c5-aba9-e005e4be484b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Resources\Memory Management\Resources">
-      <UniqueIdentifier>{3f7866d7-bacb-417c-a447-ce6967c38674}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Resources\Memory Management\Descriptors">
+    <Filter Include="Graphics\Descriptors">
       <UniqueIdentifier>{81479ba0-7e5b-4082-ab81-ca59dcb4330a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Descriptors\Memory Management">
+      <UniqueIdentifier>{86f0f9c7-dad3-4fd6-baae-24d03620910c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Descriptors\Buffers">
+      <UniqueIdentifier>{b2cf578e-a86b-4590-b42f-f5aa031d61c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

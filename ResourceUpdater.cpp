@@ -67,20 +67,20 @@ namespace dx12test::Graphics
     check_hresult(_fence->SetEventOnCompletion(completedValue, _completeEvent.get()));
 
     //Create staging resources
-    vector<com_ptr<ID3D12Resource>> resources;
+    vector<com_ptr<ID3D12ResourceT>> resources;
     for (auto& layoutItem : layout.Items)
     {
       auto update = static_cast<ResourceUpdate*>(layoutItem.Tag);
 
       //Create CPU resource
-      com_ptr<ID3D12Resource> stagingResource;
+      com_ptr<ID3D12ResourceT> stagingResource;
       check_hresult(_device->CreatePlacedResource(
         _stagingHeap.get(),
         layoutItem.Offset,
         &layoutItem.Desc,
         D3D12_RESOURCE_STATE_GENERIC_READ,
         nullptr,
-        guid_of<ID3D12Resource>(),
+        guid_of<ID3D12ResourceT>(),
         stagingResource.put_void()));
 
       //Copy data to staging area

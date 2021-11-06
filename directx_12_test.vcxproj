@@ -111,6 +111,7 @@
   <ItemGroup>
     <ClInclude Include="BitwiseOperations.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="ConstantBufferView.h" />
     <ClInclude Include="DescriptorHeap.h" />
     <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="GraphicsDefines.h" />
@@ -158,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="ConstantBufferView.cpp" />
     <ClCompile Include="DescriptorHeap.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="GraphicsResource.cpp" />

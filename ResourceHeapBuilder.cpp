@@ -53,14 +53,14 @@ namespace dx12test::Graphics
     {
       auto heapData = static_cast<ResourceHeapData*>(layoutItem.Tag);
 
-      com_ptr<ID3D12Resource> resource;
+      com_ptr<ID3D12ResourceT> resource;
       check_hresult(_device->CreatePlacedResource(
         resourceHeap.get(),
         layoutItem.Offset,
         &layoutItem.Desc,
         D3D12_RESOURCE_STATE_COMMON,
         nullptr,
-        guid_of<ID3D12Resource>(),
+        guid_of<ID3D12ResourceT>(),
         resource.put_void()));
 
       heapData->HeapItem->Initialize(resource);

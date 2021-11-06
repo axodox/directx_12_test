@@ -3,7 +3,11 @@
 
 namespace dx12test::Graphics
 {
-  const winrt::com_ptr<ID3D12DeviceT>& GraphicsResource::Device() const
+    GraphicsResource::GraphicsResource(const winrt::com_ptr<ID3D12DeviceT>& device) :
+      _device(device)
+    { }
+
+    const winrt::com_ptr<ID3D12DeviceT>& GraphicsResource::Device() const
   {
     return _device;
   }

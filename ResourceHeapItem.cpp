@@ -50,12 +50,17 @@ namespace dx12test::Graphics
       target.SizeInBytes >= source.SizeInBytes;
   }
 
-  const winrt::com_ptr<ID3D12Resource>& ResourceHeapItem::Resource() const
+  bool ResourceHeapItem::IsLoaded() const
+  {
+    return _resource != nullptr;
+  }
+
+  const winrt::com_ptr<ID3D12ResourceT>& ResourceHeapItem::Resource() const
   {
     return _resource;
   }
 
-  void ResourceHeapItem::Initialize(const winrt::com_ptr<ID3D12Resource>& resource)
+  void ResourceHeapItem::Initialize(const winrt::com_ptr<ID3D12ResourceT>& resource)
   {
     _resource = resource;
     OnInitialize();

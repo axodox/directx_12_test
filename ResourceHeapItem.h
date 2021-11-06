@@ -1,4 +1,5 @@
 #pragma once
+#include "GraphicsDefines.h"
 
 namespace dx12test::Graphics
 {
@@ -29,20 +30,24 @@ namespace dx12test::Graphics
     Immutable
   };
 
-  struct ResourceHeapItem
+  class ResourceHeapItem
   {
+    friend class ResourceHeapBuilder;
+
+  public:
     virtual ~ResourceHeapItem() = default;
-
     virtual ResourceType Type() const = 0;
-    virtual D3D12_RESOURCE_STATES DefaultState() const = 0;
 
-    const winrt::com_ptr<ID3D12Resource>& Resource() const;
-    void Initialize(const winrt::com_ptr<ID3D12Resource>& resource);
+    bool IsLoaded() const;
+    const winrt::com_ptr<ID3D12ResourceT>& Resource() const;
 
   protected:
     virtual void OnInitialize() { }
+    virtual D3D12_RESOURCE_STATES DefaultState() const = 0;
 
   private:
-    winrt::com_ptr<ID3D12Resource> _resource;
+    winrt::com_ptr<ID3D12ResourceT> _resource;
+
+    void Initialize(const winrt::com_ptr<ID3D12ResourceT>& resource);
   };
 }
