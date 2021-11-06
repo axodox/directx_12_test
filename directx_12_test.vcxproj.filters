@@ -54,6 +54,9 @@
     <ClCompile Include="ConstantBufferView.cpp">
       <Filter>Graphics\Descriptors\Buffers</Filter>
     </ClCompile>
+    <ClCompile Include="RootSignatureBuilder.cpp">
+      <Filter>Graphics\Pipeline State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -110,6 +113,12 @@
     </ClInclude>
     <ClInclude Include="ConstantBufferView.h">
       <Filter>Graphics\Descriptors\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="RootSignatureBuilder.h">
+      <Filter>Graphics\Pipeline State</Filter>
+    </ClInclude>
+    <ClInclude Include="ValueBag.h">
+      <Filter>Infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +183,9 @@
     </Filter>
     <Filter Include="Graphics\Descriptors\Buffers">
       <UniqueIdentifier>{b2cf578e-a86b-4590-b42f-f5aa031d61c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Pipeline State">
+      <UniqueIdentifier>{f402eff5-0850-4add-a02a-2dd5d63baacc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
