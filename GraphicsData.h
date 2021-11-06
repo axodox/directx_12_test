@@ -6,7 +6,8 @@ namespace dx12test::Graphics
   struct GraphicsData
   {
     virtual const uint8_t* Data() const = 0;
-    virtual size_t Length() const = 0;    
+    virtual size_t Length() const = 0;
+    virtual size_t Capacity() const { return Length(); }
     virtual ~GraphicsData() = default;
 
     virtual D3D12_RESOURCE_DESC GetDesc() const = 0;
@@ -20,7 +21,7 @@ namespace dx12test::Graphics
       BitwiseOperations::zero_memory(result);
       result.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
       result.Alignment = D3D12_DEFAULT_RESOURCE_PLACEMENT_ALIGNMENT;
-      result.Width = Length();
+      result.Width = Capacity();
       result.Height = 1;
       result.DepthOrArraySize = 1;
       result.MipLevels = 1;

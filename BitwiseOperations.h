@@ -161,4 +161,10 @@ namespace dx12test::BitwiseOperations
   {
     memset(&value, 0, sizeof(T));
   }
+
+  inline constexpr size_t align_size(size_t baseSize, size_t alignment)
+  {
+    auto mod = baseSize % alignment;
+    return (mod == 0 ? baseSize : baseSize + alignment - mod);
+  }
 }

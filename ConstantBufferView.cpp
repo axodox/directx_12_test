@@ -19,12 +19,13 @@ namespace dx12test::Graphics
     //Build description
     D3D12_CONSTANT_BUFFER_VIEW_DESC desc;
     zero_memory(desc);
-    desc.SizeInBytes = resource->GetDesc().Width;
+    desc.SizeInBytes = UINT(resource->GetDesc().Width);
     desc.BufferLocation = resource->GetGPUVirtualAddress();
 
     //Create constant buffer view
     context.Device->CreateConstantBufferView(
       &desc,
       context.CpuDescriptorHandle);
+    return true;
   }
 }

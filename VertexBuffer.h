@@ -21,6 +21,8 @@ namespace dx12test::Graphics
   {
   public:
     virtual ResourceType Type() const override;
+
+  private:
     virtual D3D12_RESOURCE_STATES DefaultState() const override;
   };
 }
