@@ -20,7 +20,7 @@ namespace dx12test::Graphics
       D3D_REQUIRED_FEATURE_LEVEL, 
       guid_of<ID3D12DeviceT>(), 
       _device.put_void()));
-
+    
     D3D12_COMMAND_QUEUE_DESC queueDesc;
     zero_memory(queueDesc);
 

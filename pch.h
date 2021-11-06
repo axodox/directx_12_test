@@ -25,6 +25,7 @@
 #include <functional>
 #include <typeinfo>
 #include <typeindex>
+#include <mutex>
 
 #include <DirectXMath.h>
 #include <dxgi1_4.h>

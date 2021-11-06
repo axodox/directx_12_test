@@ -111,10 +111,12 @@
   <ItemGroup>
     <ClInclude Include="BitwiseOperations.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="DescriptorHeap.h" />
     <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="GraphicsDefines.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="GraphicsResource.h" />
+    <ClInclude Include="ResourceDescriptorHeap.h" />
     <ClInclude Include="ResourceHeapLayoutGenerator.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
@@ -156,8 +158,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="DescriptorHeap.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="GraphicsResource.cpp" />
+    <ClCompile Include="ResourceDescriptorHeap.cpp" />
     <ClCompile Include="ResourceHeapLayoutGenerator.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
