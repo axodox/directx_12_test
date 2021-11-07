@@ -46,6 +46,8 @@ namespace dx12test::Graphics
 
     ID3D12RootSignature* Signature() const;
 
+    bool IsInputAssemblerEnabled = true;
+
   protected:
     RootSignatureBase(RootSignatureInitializationContext& context);
     RootSignatureBase(RootSignatureInitializationContext& context, std::vector<StaticSampler>&& staticSamplers);

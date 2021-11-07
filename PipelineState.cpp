@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "PipelineStateFactory.h"
+#include "PipelineState.h"
 #include "BitwiseOperations.h"
 
 using namespace std;
@@ -40,9 +40,12 @@ namespace dx12test::Graphics
 
     if(!description.DepthStencilState) throw exception("Depth stencil state must be set.");
     desc.DepthStencilState = description.DepthStencilState->_description;
-
-    if (!description.InputLayout) throw exception("Input layout must be set."); 
-    desc.InputLayout = *description.InputLayout;
+        
+    if (description.RootSignature->IsInputAssemblerEnabled)
+    {
+      if(!description.InputLayout) throw exception("Input layout must be set.");
+      desc.InputLayout = *description.InputLayout;
+    }
     desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE(description.Topology);
 
     desc.NumRenderTargets = UINT(description.RenderTargetFormats.size());

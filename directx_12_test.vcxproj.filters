@@ -60,7 +60,7 @@
     <ClCompile Include="TextureAddressMode.cpp">
       <Filter>Graphics\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="PipelineStateFactory.cpp">
+    <ClCompile Include="PipelineState.cpp">
       <Filter>Graphics\States</Filter>
     </ClCompile>
     <ClCompile Include="FileAccess.cpp">
@@ -156,7 +156,7 @@
     <ClInclude Include="TextureFormat.h">
       <Filter>Graphics\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="PipelineStateFactory.h">
+    <ClInclude Include="PipelineState.h">
       <Filter>Graphics\States</Filter>
     </ClInclude>
     <ClInclude Include="Shaders.h">
@@ -253,6 +253,9 @@
     <Filter Include="Graphics\Resources\Vertex Definitions">
       <UniqueIdentifier>{a9fca93d-ef32-44c1-accd-163bd13a1039}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{7a067484-293e-4628-a608-12a9f61e6ac2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
@@ -260,5 +263,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -58,6 +58,10 @@ namespace dx12test::Graphics
     D3D12_VERSIONED_ROOT_SIGNATURE_DESC desc;
     zero_memory(desc);
     desc.Version = D3D_ROOT_SIGNATURE_VERSION_1_1;
+
+    //Set flags
+    desc.Desc_1_1.Flags = D3D12_ROOT_SIGNATURE_FLAG_NONE;
+    if (IsInputAssemblerEnabled) desc.Desc_1_1.Flags |= D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
     
     //Add parameters
     desc.Desc_1_1.NumParameters = uint32_t(_parameters.size());    
