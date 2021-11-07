@@ -1,8 +1,9 @@
 #include "pch.h"
-#include "RootSignatureBuilder.h"
+#include "RootSignature.h"
 #include "BitwiseOperations.h"
 
 using namespace std;
+using namespace winrt;
 using namespace dx12test::BitwiseOperations;
 
 namespace dx12test::Graphics
@@ -14,21 +15,32 @@ namespace dx12test::Graphics
     return index;
   }
 
-  D3D12_ROOT_SIGNATURE_DESC1 RootSignatureBase::GetDescription(Infrastructure::value_bag& bag) const
+  RootSignatureBase::RootSignatureBase(std::vector<StaticSampler>&& staticSamplers) :
+    _staticSamplers(move(staticSamplers))
+  { }
+
+  winrt::com_ptr<ID3DBlob> RootSignatureBase::Serialize() const
   {
-    D3D12_ROOT_SIGNATURE_DESC1 desc;
+    //Prepare root signature description
+    Infrastructure::value_bag bag;
+    D3D12_VERSIONED_ROOT_SIGNATURE_DESC desc;
     zero_memory(desc);
-    desc.NumParameters = uint32_t(_parameters.size());
+    desc.Version = D3D_ROOT_SIGNATURE_VERSION_1_1;
     
+    //Add parameters
+    desc.Desc_1_1.NumParameters = uint32_t(_parameters.size());    
     auto& parameters = bag.add<vector<D3D12_ROOT_PARAMETER1>>();
     parameters.reserve(_parameters.size());
     for (auto& parameter : _parameters)
     {
       parameters.push_back(parameter->GetDescription(bag));
     }
-    desc.pParameters = parameters.data();
-
-    return desc;
+    desc.Desc_1_1.pParameters = parameters.data();
+    
+    //Serialize description
+    com_ptr<ID3DBlob> result;
+    check_hresult(D3D12SerializeVersionedRootSignature(&desc, result.put(), nullptr));
+    return result;
   }
 
   RootSignatureParameter::RootSignatureParameter(RootSignatureBase* owner, ShaderVisibility visibility) :
@@ -98,5 +110,30 @@ namespace dx12test::Graphics
   RootSignatureParameterType SamplerParameter::Type() const
   {
     return RootSignatureParameterType::Sampler;
+  }
+  
+  StaticSampler::StaticSampler(uint32_t slot, TextureFilter filter, UvwAddressMode addressMode, ShaderVisibility visibility) :
+    _slot(slot),
+    _filter(filter),
+    _addressMode(addressMode),
+    _visibility(visibility)
+  { }
+
+  D3D12_STATIC_SAMPLER_DESC StaticSampler::GetDescription() const
+  {
+    D3D12_STATIC_SAMPLER_DESC desc;
+    zero_memory(desc);
+
+    desc.Filter = D3D12_FILTER(_filter);
+    desc.AddressU = D3D12_TEXTURE_ADDRESS_MODE(_addressMode.U);
+    desc.AddressV = D3D12_TEXTURE_ADDRESS_MODE(_addressMode.V);
+    desc.AddressW = D3D12_TEXTURE_ADDRESS_MODE(_addressMode.W);
+    desc.MaxAnisotropy = _filter == TextureFilter::Anisotropic ? 8 : 1;
+    desc.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
+    desc.MaxLOD = D3D12_FLOAT32_MAX;
+    desc.ShaderRegister = _slot;
+    desc.ShaderVisibility = D3D12_SHADER_VISIBILITY(_visibility);
+
+    return desc;
   }
 }

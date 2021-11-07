@@ -9,7 +9,7 @@ namespace dx12test::Infrastructure
   };
 
   template<typename T>
-  class value_container : public value_container_base
+  struct value_container : public value_container_base
   {
     T value;
   };

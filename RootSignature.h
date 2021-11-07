@@ -2,22 +2,28 @@
 #include "GraphicsDefines.h"
 #include "GraphicsResource.h"
 #include "ValueBag.h"
+#include "TextureFilter.h"
+#include "TextureAddressMode.h"
 
 namespace dx12test::Graphics
 {
+  struct StaticSampler;
   struct RootSignatureParameter;
 
-  class RootSignatureBase
+  struct RootSignatureBase
   {
     friend struct RootSignatureParameter;
-
-  public:
     virtual ~RootSignatureBase() = default;
+
+  protected:
+    RootSignatureBase() = default;
+    RootSignatureBase(std::vector<StaticSampler>&& staticSamplers);
 
   private:
     uint32_t AddParameter(RootSignatureParameter* parameter);
-    D3D12_ROOT_SIGNATURE_DESC1 GetDescription(Infrastructure::value_bag& bag) const;
+    winrt::com_ptr<ID3DBlob> Serialize() const;
 
+    std::vector<StaticSampler> _staticSamplers;
     std::vector<RootSignatureParameter*> _parameters;
   };
 
@@ -63,7 +69,6 @@ namespace dx12test::Graphics
 
   struct SingleSlotParameter : public RootSignatureParameter
   {
-  public:
     SingleSlotParameter(RootSignatureBase* owner, uint32_t slot, ShaderVisibility visibility = ShaderVisibility::All);
 
   protected:
@@ -95,5 +100,20 @@ namespace dx12test::Graphics
   {
     using SingleSlotParameter::SingleSlotParameter;
     virtual RootSignatureParameterType Type() const override;
+  };
+
+  struct StaticSampler
+  {
+    friend struct RootSignatureBase;
+
+    StaticSampler(uint32_t slot, TextureFilter filter, UvwAddressMode addressMode, ShaderVisibility visibility = ShaderVisibility::All);
+
+  private:
+    D3D12_STATIC_SAMPLER_DESC GetDescription() const;
+
+    uint32_t _slot;
+    TextureFilter _filter;
+    UvwAddressMode _addressMode;
+    ShaderVisibility _visibility;
   };
 }

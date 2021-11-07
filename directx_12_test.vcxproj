@@ -129,9 +129,12 @@
     <ClInclude Include="ResourceHeapBuilder.h" />
     <ClInclude Include="ResourceHeapItem.h" />
     <ClInclude Include="ResourceUpdater.h" />
-    <ClInclude Include="RootSignatureBuilder.h" />
+    <ClInclude Include="RootSignature.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="TextureAddressMode.h" />
+    <ClInclude Include="TextureFilter.h" />
+    <ClInclude Include="TextureFormat.h" />
     <ClInclude Include="ValueBag.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexPosition.h" />
@@ -180,9 +183,10 @@
     <ClCompile Include="ResourceHeapBuilder.cpp" />
     <ClCompile Include="ResourceHeapItem.cpp" />
     <ClCompile Include="ResourceUpdater.cpp" />
-    <ClCompile Include="RootSignatureBuilder.cpp" />
+    <ClCompile Include="RootSignature.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="TextureAddressMode.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>

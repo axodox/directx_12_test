@@ -54,8 +54,11 @@
     <ClCompile Include="ConstantBufferView.cpp">
       <Filter>Graphics\Descriptors\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="RootSignatureBuilder.cpp">
+    <ClCompile Include="RootSignature.cpp">
       <Filter>Graphics\Pipeline State</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureAddressMode.cpp">
+      <Filter>Graphics\Enums</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,11 +117,20 @@
     <ClInclude Include="ConstantBufferView.h">
       <Filter>Graphics\Descriptors\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="RootSignatureBuilder.h">
+    <ClInclude Include="RootSignature.h">
       <Filter>Graphics\Pipeline State</Filter>
     </ClInclude>
     <ClInclude Include="ValueBag.h">
       <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureFilter.h">
+      <Filter>Graphics\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureAddressMode.h">
+      <Filter>Graphics\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureFormat.h">
+      <Filter>Graphics\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +198,9 @@
     </Filter>
     <Filter Include="Graphics\Pipeline State">
       <UniqueIdentifier>{f402eff5-0850-4add-a02a-2dd5d63baacc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Enums">
+      <UniqueIdentifier>{6e62c326-f2a3-4e8f-93b9-432d894c215b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
