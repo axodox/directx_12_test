@@ -6,9 +6,8 @@ using namespace dx12test::BitwiseOperations;
 
 namespace dx12test::Graphics
 {
-  DepthStencilState::DepthStencilState(bool depthWrite, ComparisonFunction depthFunc)
+  constexpr DepthStencilState::DepthStencilState(bool depthWrite, ComparisonFunction depthFunc)
   {
-    zero_memory(_description);
     _description.DepthEnable = true;
     _description.DepthWriteMask = depthWrite ? D3D12_DEPTH_WRITE_MASK_ALL : D3D12_DEPTH_WRITE_MASK_ZERO;
     _description.DepthFunc = D3D12_COMPARISON_FUNC(depthFunc);
@@ -26,4 +25,6 @@ namespace dx12test::Graphics
     _description.FrontFace = defaultStencilOp;
     _description.BackFace = defaultStencilOp;
   }
+
+  const DepthStencilState DepthStencilState::Default = {};
 }

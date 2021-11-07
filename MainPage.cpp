@@ -3,7 +3,7 @@
 #include "MainPage.g.cpp"
 #include "ResourceHeapBuilder.h"
 #include "ResourceDescriptorHeap.h"
-#include "VertexPosition.h"
+#include "VertexDefinitions.h"
 #include "RootSignature.h"
 
 using namespace dx12test::Graphics;
@@ -41,9 +41,9 @@ namespace winrt::directx_12_test::implementation
 
     IndexData<uint16_t> indices{{ 1, 2, 3 }};
     VertexData<VertexPosition> vertices{{ 
-        XMFLOAT3{0,0,0},
-        XMFLOAT3{0,1,0},
-        XMFLOAT3{0,0,2}
+      {{0,0,0}},
+      {{0,1,0}},
+      {{0,0,2}}
       }};
 
     struct MyConstants

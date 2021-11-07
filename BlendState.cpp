@@ -6,9 +6,10 @@ using namespace dx12test::BitwiseOperations;
 
 namespace dx12test::Graphics
 {
-  BlendState::BlendState(BlendType type)
+  constexpr BlendState::BlendState(BlendType type)
   {
-    zero_memory(_description);
+    _description.AlphaToCoverageEnable = false;
+    _description.IndependentBlendEnable = false;
     
     auto& renderTargetBlendDesc = _description.RenderTarget[0];
     renderTargetBlendDesc.RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
@@ -28,7 +29,7 @@ namespace dx12test::Graphics
       renderTargetBlendDesc.BlendEnable = true;
       renderTargetBlendDesc.SrcBlend = D3D12_BLEND_ONE;
       renderTargetBlendDesc.DestBlend = D3D12_BLEND_ONE;
-      renderTargetBlendDesc.BlendOp = renderTargetBlendDesc.BlendOpAlpha = (type == Additive ? D3D12_BLEND_OP_ADD : D3D12_BLEND_OP_REV_SUBTRACT);
+      renderTargetBlendDesc.BlendOp = renderTargetBlendDesc.BlendOpAlpha = (type == BlendType::Additive ? D3D12_BLEND_OP_ADD : D3D12_BLEND_OP_REV_SUBTRACT);
       renderTargetBlendDesc.SrcBlendAlpha = D3D12_BLEND_ONE;
       renderTargetBlendDesc.DestBlendAlpha = D3D12_BLEND_ONE;
       renderTargetBlendDesc.BlendOpAlpha = renderTargetBlendDesc.BlendOp;
@@ -46,4 +47,9 @@ namespace dx12test::Graphics
       throw std::exception("Unknown blend state!");
     }
   }
+
+  const BlendState BlendState::Opaque = { BlendType::Opaque };
+  const BlendState BlendState::Additive = { BlendType::Additive };
+  const BlendState BlendState::Subtractive = { BlendType::Subtractive };
+  const BlendState BlendState::AlphaBlend = { BlendType::AlphaBlend };
 }

@@ -14,10 +14,16 @@ namespace dx12test::Graphics
 
   class RasterizerState
   {
-    friend class GraphicsPipelineStateBuilder;
+    friend class PipelineStateFactory;
 
   public:
-    RasterizerState(RasterizerType type, int depthBias, bool isMultisampling);
+    constexpr RasterizerState(RasterizerType type, int depthBias = 0, bool isMultisampling = false);
+
+    static const RasterizerState Default;
+    static const RasterizerState CullNone;
+    static const RasterizerState CullClockwise;
+    static const RasterizerState CullCounterClockwise;
+    static const RasterizerState Wireframe;
 
   private:
     D3D12_RASTERIZER_DESC _description;

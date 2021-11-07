@@ -13,10 +13,15 @@ namespace dx12test::Graphics
 
   class BlendState
   {
-    friend class GraphicsPipelineStateBuilder;
+    friend class PipelineStateFactory;
 
   public:
-    BlendState(BlendType type);
+    constexpr BlendState(BlendType type);
+
+    static const BlendState Opaque;
+    static const BlendState Additive;
+    static const BlendState Subtractive;
+    static const BlendState AlphaBlend;
 
   private:
     D3D12_BLEND_DESC _description;

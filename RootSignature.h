@@ -43,7 +43,9 @@ namespace dx12test::Graphics
     friend struct RootSignatureParameter;
     friend struct RootSignatureInitializationContext;
     virtual ~RootSignatureBase() = default;
-    
+
+    ID3D12RootSignature* Signature() const;
+
   protected:
     RootSignatureBase(RootSignatureInitializationContext& context);
     RootSignatureBase(RootSignatureInitializationContext& context, std::vector<StaticSampler>&& staticSamplers);

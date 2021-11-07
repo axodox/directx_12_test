@@ -121,7 +121,9 @@
     <ClInclude Include="GraphicsDefines.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="GraphicsResource.h" />
-    <ClInclude Include="PipelineStateBuilder.h" />
+    <ClInclude Include="MultiSamplingState.h" />
+    <ClInclude Include="PipelineStateFactory.h" />
+    <ClInclude Include="PrimitiveTopology.h" />
     <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="ResourceDescriptorHeap.h" />
     <ClInclude Include="ResourceHeapLayoutGenerator.h" />
@@ -144,7 +146,7 @@
     <ClInclude Include="TextureFormat.h" />
     <ClInclude Include="ValueBag.h" />
     <ClInclude Include="VertexBuffer.h" />
-    <ClInclude Include="VertexPosition.h" />
+    <ClInclude Include="VertexDefinitions.h" />
     <ClInclude Include="WinUiThreading.h" />
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +180,8 @@
     <ClCompile Include="FileAccess.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="GraphicsResource.cpp" />
-    <ClCompile Include="PipelineStateBuilder.cpp" />
+    <ClCompile Include="MultiSamplingState.cpp" />
+    <ClCompile Include="PipelineStateFactory.cpp" />
     <ClCompile Include="RasterizerState.cpp" />
     <ClCompile Include="ResourceDescriptorHeap.cpp" />
     <ClCompile Include="ResourceHeapLayoutGenerator.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="TextureAddressMode.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexDefinitions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">

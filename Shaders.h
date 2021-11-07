@@ -15,6 +15,8 @@ namespace dx12test::Graphics
 
   class ShaderBase
   {
+    friend class PipelineStateFactory;
+
   public:
     ShaderBase(const std::filesystem::path& path);
     virtual ~ShaderBase() = default;
@@ -22,6 +24,8 @@ namespace dx12test::Graphics
     virtual ShaderType Type() const = 0;
 
   private:
+    D3D12_SHADER_BYTECODE ByteCode() const;
+
     std::vector<uint8_t> _bytecode;
   };
 

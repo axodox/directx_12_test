@@ -5,10 +5,12 @@ namespace dx12test::Graphics
 {
   class DepthStencilState
   {
-    friend class GraphicsPipelineStateBuilder;
+    friend class PipelineStateFactory;
 
   public:
-    DepthStencilState(bool depthWrite = true, ComparisonFunction depthFunc = ComparisonFunction::Less);
+    constexpr DepthStencilState(bool depthWrite = true, ComparisonFunction depthFunc = ComparisonFunction::Less);
+
+    static const DepthStencilState Default;
 
   private:
     D3D12_DEPTH_STENCIL_DESC _description;

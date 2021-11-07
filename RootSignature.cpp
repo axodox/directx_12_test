@@ -39,6 +39,11 @@ namespace dx12test::Graphics
     _staticSamplers = move(staticSamplers);
   }
 
+  ID3D12RootSignature* RootSignatureBase::Signature() const
+  {
+    return _rootSignature.get();
+  }
+
   uint32_t RootSignatureBase::AddParameter(RootSignatureParameter* parameter)
   {
     auto index = uint32_t(_parameters.size());
