@@ -110,13 +110,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BitwiseOperations.h" />
+    <ClInclude Include="BlendState.h" />
+    <ClInclude Include="ComparisonFunction.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="ConstantBufferView.h" />
+    <ClInclude Include="DepthStencilState.h" />
     <ClInclude Include="DescriptorHeap.h" />
+    <ClInclude Include="FileAccess.h" />
     <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="GraphicsDefines.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="GraphicsResource.h" />
+    <ClInclude Include="PipelineStateBuilder.h" />
+    <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="ResourceDescriptorHeap.h" />
     <ClInclude Include="ResourceHeapLayoutGenerator.h" />
     <ClInclude Include="pch.h" />
@@ -130,6 +136,7 @@
     <ClInclude Include="ResourceHeapItem.h" />
     <ClInclude Include="ResourceUpdater.h" />
     <ClInclude Include="RootSignature.h" />
+    <ClInclude Include="Shaders.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="TextureAddressMode.h" />
@@ -163,11 +170,16 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="ConstantBufferView.cpp" />
+    <ClCompile Include="DepthStencilState.cpp" />
     <ClCompile Include="DescriptorHeap.cpp" />
+    <ClCompile Include="FileAccess.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="GraphicsResource.cpp" />
+    <ClCompile Include="PipelineStateBuilder.cpp" />
+    <ClCompile Include="RasterizerState.cpp" />
     <ClCompile Include="ResourceDescriptorHeap.cpp" />
     <ClCompile Include="ResourceHeapLayoutGenerator.cpp" />
     <ClCompile Include="pch.cpp">
@@ -184,6 +196,7 @@
     <ClCompile Include="ResourceHeapItem.cpp" />
     <ClCompile Include="ResourceUpdater.cpp" />
     <ClCompile Include="RootSignature.cpp" />
+    <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="TextureAddressMode.cpp" />

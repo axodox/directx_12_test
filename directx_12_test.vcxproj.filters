@@ -55,10 +55,28 @@
       <Filter>Graphics\Descriptors\Buffers</Filter>
     </ClCompile>
     <ClCompile Include="RootSignature.cpp">
-      <Filter>Graphics\Pipeline State</Filter>
+      <Filter>Graphics\States</Filter>
     </ClCompile>
     <ClCompile Include="TextureAddressMode.cpp">
       <Filter>Graphics\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineStateBuilder.cpp">
+      <Filter>Graphics\States</Filter>
+    </ClCompile>
+    <ClCompile Include="FileAccess.cpp">
+      <Filter>Infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>Graphics\States</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendState.cpp">
+      <Filter>Graphics\States</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerState.cpp">
+      <Filter>Graphics\States</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilState.cpp">
+      <Filter>Graphics\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +136,7 @@
       <Filter>Graphics\Descriptors\Buffers</Filter>
     </ClInclude>
     <ClInclude Include="RootSignature.h">
-      <Filter>Graphics\Pipeline State</Filter>
+      <Filter>Graphics\States</Filter>
     </ClInclude>
     <ClInclude Include="ValueBag.h">
       <Filter>Infrastructure</Filter>
@@ -130,6 +148,27 @@
       <Filter>Graphics\Enums</Filter>
     </ClInclude>
     <ClInclude Include="TextureFormat.h">
+      <Filter>Graphics\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="PipelineStateBuilder.h">
+      <Filter>Graphics\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>Graphics\States</Filter>
+    </ClInclude>
+    <ClInclude Include="FileAccess.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendState.h">
+      <Filter>Graphics\States</Filter>
+    </ClInclude>
+    <ClInclude Include="RasterizerState.h">
+      <Filter>Graphics\States</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthStencilState.h">
+      <Filter>Graphics\States</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparisonFunction.h">
       <Filter>Graphics\Enums</Filter>
     </ClInclude>
   </ItemGroup>
@@ -196,11 +235,11 @@
     <Filter Include="Graphics\Descriptors\Buffers">
       <UniqueIdentifier>{b2cf578e-a86b-4590-b42f-f5aa031d61c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Pipeline State">
-      <UniqueIdentifier>{f402eff5-0850-4add-a02a-2dd5d63baacc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Graphics\Enums">
       <UniqueIdentifier>{6e62c326-f2a3-4e8f-93b9-432d894c215b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\States">
+      <UniqueIdentifier>{f402eff5-0850-4add-a02a-2dd5d63baacc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
