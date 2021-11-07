@@ -4,6 +4,7 @@
 #include "ResourceHeapBuilder.h"
 #include "ResourceDescriptorHeap.h"
 #include "VertexPosition.h"
+#include "RootSignature.h"
 
 using namespace dx12test::Graphics;
 using namespace DirectX;
@@ -14,6 +15,18 @@ using namespace Windows::UI::Xaml;
 
 namespace winrt::directx_12_test::implementation
 {
+  struct MyRootSignature : public RootSignatureBase
+  {
+    ConstantBufferViewParameter Contants;
+    ShaderResourceViewParameter MainTexture;
+
+    MyRootSignature(RootSignatureInitializationContext& context) :
+      RootSignatureBase(context),
+      Contants(this, 0),
+      MainTexture(this, 0)
+    { }
+  };
+
   MainPage::MainPage()
   {
     InitializeComponent();
@@ -21,6 +34,9 @@ namespace winrt::directx_12_test::implementation
     _device = make_unique<GraphicsDevice>();
     _swapChain = make_unique<SwapChainPanel>(_device->DirectQueue(), RenderPanel());
     
+    RootSignatureFactory rootSignatureFactory{ _device->Device() };
+    auto signature = rootSignatureFactory.Create<MyRootSignature>();
+
     ResourceHeapBuilder builder{ResourceCategory::Buffers, _device->CopyQueue()};
 
     IndexData<uint16_t> indices{{ 1, 2, 3 }};

@@ -8,16 +8,43 @@ using namespace dx12test::BitwiseOperations;
 
 namespace dx12test::Graphics
 {
+  RootSignatureFactory::RootSignatureFactory(const winrt::com_ptr<ID3D12DeviceT>& device) :
+    GraphicsResource(device)
+  { }
+
+  RootSignatureInitializationContext::RootSignatureInitializationContext(const RootSignatureFactory* factory) :
+    _factory(factory)
+  { }
+  
+  RootSignatureInitializationContext::~RootSignatureInitializationContext()
+  {
+    auto signatureBlob = _signature->Serialize();
+    check_hresult(_factory->Device()->CreateRootSignature(
+      0,
+      signatureBlob->GetBufferPointer(),
+      signatureBlob->GetBufferSize(),
+      guid_of<ID3D12RootSignature>(),
+      _signature->_rootSignature.put_void()
+    ));
+  }
+
+  RootSignatureBase::RootSignatureBase(RootSignatureInitializationContext& context)
+  { 
+    context._signature = this;
+  }
+
+  RootSignatureBase::RootSignatureBase(RootSignatureInitializationContext& context, std::vector<StaticSampler>&& staticSamplers) :
+    RootSignatureBase(context)
+  { 
+    _staticSamplers = move(staticSamplers);
+  }
+
   uint32_t RootSignatureBase::AddParameter(RootSignatureParameter* parameter)
   {
     auto index = uint32_t(_parameters.size());
     _parameters.push_back(parameter);
     return index;
   }
-
-  RootSignatureBase::RootSignatureBase(std::vector<StaticSampler>&& staticSamplers) :
-    _staticSamplers(move(staticSamplers))
-  { }
 
   winrt::com_ptr<ID3DBlob> RootSignatureBase::Serialize() const
   {

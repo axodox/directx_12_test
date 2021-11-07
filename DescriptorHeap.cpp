@@ -85,7 +85,7 @@ namespace dx12test::Graphics
 
     //Calculate new size    
     requiredHeapSize = descriptors.size();
-    auto newHeapSize = 1;
+    size_t newHeapSize = 1;
     do
     {
       newHeapSize *= 2;
@@ -95,7 +95,7 @@ namespace dx12test::Graphics
     D3D12_DESCRIPTOR_HEAP_DESC desc;
     zero_memory(desc);
     desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE(Type());
-    desc.NumDescriptors = newHeapSize;
+    desc.NumDescriptors = UINT(newHeapSize);
     
     switch (Type())
     {

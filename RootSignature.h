@@ -7,17 +7,46 @@
 
 namespace dx12test::Graphics
 {
+  struct RootSignatureBase;
   struct StaticSampler;
   struct RootSignatureParameter;
+  struct RootSignatureInitializationContext;
+
+  struct RootSignatureFactory : public GraphicsResource
+  {
+    RootSignatureFactory(const winrt::com_ptr<ID3D12DeviceT>& device);
+
+    template<typename T>
+    std::unique_ptr<T> Create()
+    {
+      RootSignatureInitializationContext context{ this };
+      return std::make_unique<T>(context);
+    }
+  };
+
+  struct RootSignatureInitializationContext
+  {
+    friend struct RootSignatureFactory;
+    friend struct RootSignatureBase;
+
+    ~RootSignatureInitializationContext();
+
+  private:
+    RootSignatureInitializationContext(const RootSignatureFactory* factory);
+
+    const RootSignatureFactory* _factory;
+    RootSignatureBase* _signature;
+  };
 
   struct RootSignatureBase
   {
     friend struct RootSignatureParameter;
+    friend struct RootSignatureInitializationContext;
     virtual ~RootSignatureBase() = default;
-
+    
   protected:
-    RootSignatureBase() = default;
-    RootSignatureBase(std::vector<StaticSampler>&& staticSamplers);
+    RootSignatureBase(RootSignatureInitializationContext& context);
+    RootSignatureBase(RootSignatureInitializationContext& context, std::vector<StaticSampler>&& staticSamplers);
 
   private:
     uint32_t AddParameter(RootSignatureParameter* parameter);
@@ -25,6 +54,7 @@ namespace dx12test::Graphics
 
     std::vector<StaticSampler> _staticSamplers;
     std::vector<RootSignatureParameter*> _parameters;
+    winrt::com_ptr<ID3D12RootSignature> _rootSignature;
   };
 
   enum class RootSignatureParameterType
