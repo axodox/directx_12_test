@@ -84,6 +84,18 @@
     <ClCompile Include="MultiSamplingState.cpp">
       <Filter>Graphics\States</Filter>
     </ClCompile>
+    <ClCompile Include="CommandListPool.cpp">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandListBuilder.cpp">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandListExecutor.cpp">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandList.cpp">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -183,6 +195,18 @@
     <ClInclude Include="MultiSamplingState.h">
       <Filter>Graphics\States</Filter>
     </ClInclude>
+    <ClInclude Include="CommandList.h">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandListPool.h">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandListBuilder.h">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandListExecutor.h">
+      <Filter>Graphics\Command Lists</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -255,6 +279,9 @@
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{7a067484-293e-4628-a608-12a9f61e6ac2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Command Lists">
+      <UniqueIdentifier>{ad2e5e8f-b310-418a-bd7c-8819996d0403}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

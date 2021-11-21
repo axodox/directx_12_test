@@ -36,6 +36,8 @@ namespace dx12test::Graphics
 
   class PipelineState
   {
+    friend class CommandListPool;
+
   public:
     PipelineState(const winrt::com_ptr<ID3D12PipelineState>& state);
 

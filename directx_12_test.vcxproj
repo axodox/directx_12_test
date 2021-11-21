@@ -111,6 +111,10 @@
   <ItemGroup>
     <ClInclude Include="BitwiseOperations.h" />
     <ClInclude Include="BlendState.h" />
+    <ClInclude Include="CommandList.h" />
+    <ClInclude Include="CommandListExecutor.h" />
+    <ClInclude Include="CommandListPool.h" />
+    <ClInclude Include="CommandListBuilder.h" />
     <ClInclude Include="ComparisonFunction.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="ConstantBufferView.h" />
@@ -173,6 +177,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlendState.cpp" />
+    <ClCompile Include="CommandList.cpp" />
+    <ClCompile Include="CommandListExecutor.cpp" />
+    <ClCompile Include="CommandListPool.cpp" />
+    <ClCompile Include="CommandListBuilder.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="ConstantBufferView.cpp" />
     <ClCompile Include="DepthStencilState.cpp" />
