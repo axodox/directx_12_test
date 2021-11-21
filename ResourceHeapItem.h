@@ -42,12 +42,12 @@ namespace dx12test::Graphics
     const winrt::com_ptr<ID3D12ResourceT>& Resource() const;
 
   protected:
-    virtual void OnInitialize() { }
+    winrt::com_ptr<ID3D12ResourceT> _resource;
+    
+    virtual void OnInitialize(const void*) { }
     virtual D3D12_RESOURCE_STATES DefaultState() const = 0;
 
   private:
-    winrt::com_ptr<ID3D12ResourceT> _resource;
-
-    void Initialize(const winrt::com_ptr<ID3D12ResourceT>& resource);
+    void Initialize(const winrt::com_ptr<ID3D12ResourceT>& resource, const void* context);
   };
 }

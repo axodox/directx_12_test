@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "RootSignature.h"
 #include "BitwiseOperations.h"
+#include "CommandListBuilder.h"
+#include "ConstantBufferView.h"
 
 using namespace std;
 using namespace winrt;
@@ -26,6 +28,16 @@ namespace dx12test::Graphics
       guid_of<ID3D12RootSignature>(),
       _signature->_rootSignature.put_void()
     ));
+  }
+
+  void RootSignatureBase::SetForGraphics(CommandListBuilder& commandList) const
+  {
+    commandList.Resource()->SetGraphicsRootSignature(_rootSignature.get());
+  }
+
+  void RootSignatureBase::SetForCompute(CommandListBuilder& commandList) const
+  {
+    commandList.Resource()->SetComputeRootSignature(_rootSignature.get());
   }
 
   RootSignatureBase::RootSignatureBase(RootSignatureInitializationContext& context)
@@ -141,6 +153,16 @@ namespace dx12test::Graphics
   RootSignatureParameterType ConstantBufferViewParameter::Type() const
   {
     return RootSignatureParameterType::ConstantBufferView;
+  }
+
+  void ConstantBufferViewParameter::SetForGraphics(CommandListBuilder& commandList, const ConstantBufferView* value)
+  {
+    commandList.Resource()->SetGraphicsRootDescriptorTable(_slot, value->Handle());
+  }
+
+  void ConstantBufferViewParameter::SetForCompute(CommandListBuilder& commandList, const ConstantBufferView* value)
+  {
+    commandList.Resource()->SetComputeRootDescriptorTable(_slot, value->Handle());
   }
 
   RootSignatureParameterType SamplerParameter::Type() const

@@ -10,10 +10,12 @@ namespace dx12test::Graphics
     virtual size_t Capacity() const { return Length(); }
     virtual ~GraphicsData() = default;
 
+    virtual const void* InitializationContext() const { return nullptr; }
+
     virtual D3D12_RESOURCE_DESC GetDesc() const = 0;
   };
 
-  struct BufferData : GraphicsData
+  struct BufferData : public GraphicsData
   {
     virtual D3D12_RESOURCE_DESC GetDesc() const override
     {

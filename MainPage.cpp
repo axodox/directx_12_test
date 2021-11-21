@@ -6,6 +6,7 @@
 #include "VertexDefinitions.h"
 #include "RootSignature.h"
 #include "PipelineState.h"
+#include "CommandListPool.h"
 
 using namespace dx12test::Graphics;
 using namespace DirectX;
@@ -18,12 +19,12 @@ namespace winrt::directx_12_test::implementation
 {
   struct MyRootSignature : public RootSignatureBase
   {
-    ConstantBufferViewParameter Contants;
+    ConstantBufferViewParameter Constants;
     ShaderResourceViewParameter MainTexture;
 
     MyRootSignature(RootSignatureInitializationContext& context) :
       RootSignatureBase(context),
-      Contants(this, 0),
+      Constants(this, 0),
       MainTexture(this, 0)
     { }
   };
@@ -40,7 +41,7 @@ namespace winrt::directx_12_test::implementation
 
     ResourceHeapBuilder builder{ ResourceCategory::Buffers, _device->CopyQueue() };
 
-    IndexData<uint16_t> indices{ { 1, 2, 3 } };
+    IndexData<uint16_t> indices{ { 0, 1, 2 } };
     VertexData<VertexPosition> vertices{ {
       {{0,0,0}},
       {{0,1,0}},
@@ -77,6 +78,15 @@ namespace winrt::directx_12_test::implementation
 
     PipelineStateFactory stateFactory{ _device->Device() };
     auto state = stateFactory.Create(stateDescription);
+
+    CommandListPool commandListPool{ _device->Device(), CommandListType::Direct };
+    auto commandList = commandListPool.CreateBuilder(state);
+
+    commandList.SetDescriptorHeaps(resourceDescHeap);
+    signature->SetForGraphics(commandList);
+    signature->Constants.SetForGraphics(commandList, cbv.get());
+    vb->Set(commandList);
+    ib->Set(commandList);
   }
 
   int32_t MainPage::MyProperty()

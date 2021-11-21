@@ -63,7 +63,7 @@ namespace dx12test::Graphics
         guid_of<ID3D12ResourceT>(),
         resource.put_void()));
 
-      heapData->HeapItem->Initialize(resource);
+      heapData->HeapItem->Initialize(resource, heapData->SourceData->InitializationContext());
 
       if (heapData->SourceData->Data())
       {

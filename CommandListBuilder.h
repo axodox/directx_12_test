@@ -4,6 +4,8 @@
 
 namespace dx12test::Graphics
 {
+  class ResourceDescriptorHeap;
+
   class CommandListBuilder : public GraphicsResource
   {
   public:
@@ -18,6 +20,10 @@ namespace dx12test::Graphics
     bool IsValid() const;
     void Reset();
     CommandListExecutor Build();
+
+    void SetDescriptorHeaps(ResourceDescriptorHeap& resourceHeap);
+
+    ID3D12GraphicsCommandListT* Resource() const;
 
   private:
     std::shared_ptr<CommandAllocator> _commandAllocator;

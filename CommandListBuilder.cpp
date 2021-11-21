@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CommandListBuilder.h"
+#include "ResourceDescriptorHeap.h"
 
 using namespace std;
 using namespace winrt;
@@ -51,5 +52,21 @@ namespace dx12test::Graphics
     CommandListExecutor result{ _commandAllocator, _commandList };
     Reset();
     return result;
+  }
+  
+  void CommandListBuilder::SetDescriptorHeaps(ResourceDescriptorHeap& resourceHeap)
+  {
+    assert(IsValid());
+
+    ID3D12DescriptorHeap* heaps[] = {
+      resourceHeap._heap.get()
+    };
+    _commandList->Resource->SetDescriptorHeaps(1, heaps);
+  }
+  
+  ID3D12GraphicsCommandListT* CommandListBuilder::Resource() const
+  {
+    assert(IsValid());
+    return _commandList->Resource.get();
   }
 }

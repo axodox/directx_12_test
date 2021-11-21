@@ -8,6 +8,7 @@ namespace dx12test::Graphics
   {
     ID3D12DeviceT* Device;
     D3D12_CPU_DESCRIPTOR_HANDLE CpuDescriptorHandle;
+    D3D12_GPU_DESCRIPTOR_HANDLE GpuDescriptorHandle;
     size_t Slot;
   };
 
@@ -19,6 +20,8 @@ namespace dx12test::Graphics
     virtual ~DescriptorHeapItem() = default;
     bool IsLoaded() const;
 
+    D3D12_GPU_DESCRIPTOR_HANDLE Handle() const;
+
   protected:
     virtual bool OnTryLoad(const DescriptorHeapItemInitializationContext& context) = 0;
 
@@ -26,6 +29,7 @@ namespace dx12test::Graphics
     bool TryLoad(const DescriptorHeapItemInitializationContext& context);
 
     bool _isLoaded = false;
+    D3D12_GPU_DESCRIPTOR_HANDLE _handle = { 0 };
   };
 
   enum class DescriptorHeapType : std::underlying_type_t<D3D12_DESCRIPTOR_HEAP_TYPE>
@@ -38,6 +42,8 @@ namespace dx12test::Graphics
 
   class DescriptorHeap : public GraphicsResource
   {
+    friend class CommandListBuilder;
+
   public:
     DescriptorHeap(const winrt::com_ptr<ID3D12DeviceT>& device);
     virtual ~DescriptorHeap() = default;

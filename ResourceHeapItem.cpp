@@ -60,9 +60,9 @@ namespace dx12test::Graphics
     return _resource;
   }
 
-  void ResourceHeapItem::Initialize(const winrt::com_ptr<ID3D12ResourceT>& resource)
+  void ResourceHeapItem::Initialize(const winrt::com_ptr<ID3D12ResourceT>& resource, const void* context)
   {
     _resource = resource;
-    OnInitialize();
+    OnInitialize(context);
   }
 }

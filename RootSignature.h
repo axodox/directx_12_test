@@ -7,6 +7,9 @@
 
 namespace dx12test::Graphics
 {
+  class CommandListBuilder;
+  class ConstantBufferView;
+
   struct RootSignatureBase;
   struct StaticSampler;
   struct RootSignatureParameter;
@@ -47,6 +50,9 @@ namespace dx12test::Graphics
     ID3D12RootSignature* Signature() const;
 
     bool IsInputAssemblerEnabled = true;
+
+    void SetForGraphics(CommandListBuilder& commandList) const;
+    void SetForCompute(CommandListBuilder& commandList) const;
 
   protected:
     RootSignatureBase(RootSignatureInitializationContext& context);
@@ -108,7 +114,6 @@ namespace dx12test::Graphics
   protected:
     virtual void FillDescription(Infrastructure::value_bag& bag, D3D12_ROOT_PARAMETER1& parameter) const override;
 
-  private:
     uint32_t _slot;
   };
 
@@ -128,6 +133,9 @@ namespace dx12test::Graphics
   {
     using SingleSlotParameter::SingleSlotParameter;
     virtual RootSignatureParameterType Type() const override;
+
+    void SetForGraphics(CommandListBuilder& commandList, const ConstantBufferView* value);
+    void SetForCompute(CommandListBuilder& commandList, const ConstantBufferView* value);
   };
 
   struct SamplerParameter : public SingleSlotParameter

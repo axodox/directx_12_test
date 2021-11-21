@@ -13,11 +13,17 @@ namespace dx12test::Graphics
     return _isLoaded;
   }
 
+  D3D12_GPU_DESCRIPTOR_HANDLE DescriptorHeapItem::Handle() const
+  {
+    return _handle;
+  }
+
   bool DescriptorHeapItem::TryLoad(const DescriptorHeapItemInitializationContext& context)
   {
     if (_isLoaded) return false;
 
     _isLoaded = OnTryLoad(context);
+    _handle = _isLoaded ? context.GpuDescriptorHandle : D3D12_GPU_DESCRIPTOR_HANDLE{ 0 };
     return _isLoaded;
   }
 
@@ -121,6 +127,7 @@ namespace dx12test::Graphics
   {
     //Determine upload location
     auto handleStartCpu = _heap->GetCPUDescriptorHandleForHeapStart();
+    auto handleStartGpu = _heap->GetGPUDescriptorHandleForHeapStart();
     auto handleIncrement = _device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE(Type()));
     handleStartCpu.ptr += _heapStart * handleIncrement;
 
@@ -129,6 +136,7 @@ namespace dx12test::Graphics
     zero_memory(context);
     context.Device = _device.get();
     context.CpuDescriptorHandle = handleStartCpu;
+    context.GpuDescriptorHandle = handleStartGpu;
     context.Slot = _heapStart;
 
     //Load descriptors
@@ -137,6 +145,7 @@ namespace dx12test::Graphics
       if (descriptor->TryLoad(context))
       {
         context.CpuDescriptorHandle.ptr += handleIncrement;
+        if (handleStartGpu.ptr) context.GpuDescriptorHandle.ptr += handleIncrement;
         context.Slot++;
       }
     }
